@@ -125,7 +125,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue';
 import { collection, onSnapshot, query } from 'firebase/firestore';
-import { db } from '@/config/firebase'; // Asegúrate que la ruta sea correcta
+import { db } from '../config/firebase.js'; 
 
 // --- REFERENCIAS REACTIVAS ---
 const allTasks = ref([]); // Almacena todas las tareas de Firestore

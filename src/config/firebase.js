@@ -1,20 +1,17 @@
-// src/firebase.js
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
-// 💡 IMPORTANTE: Usa variables de entorno (ej: .env file en Vue/Vite)
 const firebaseConfig = {
-  apiKey: "TU_API_KEY", 
-  authDomain: "TU_PROJECT_ID.firebaseapp.com",
-  projectId: "TU_PROJECT_ID",
-  storageBucket: "...",
-  messagingSenderId: "...",
-  appId: "..."
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID
 };
 
 // Inicializar Firebase
 const app = initializeApp(firebaseConfig);
-// inicializar Cloud Firestore
-const db = getFirestore(app);   
-// Exportar el servicio de la base de datos
+const db = getFirestore(app);
+
 export { db };

@@ -1,17 +1,24 @@
 <template>
-  <div>
+  <div class="min-h-screen bg-stone-100 flex flex-col">
+    <main class="flex-grow">
+      <Dashboard />
+    </main>
+    <FooterApp />
+  </div>
+
+  <!-- <div>
     <a href="https://vite.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
     </a>
     <a href="https://vuejs.org/" target="_blank">
       <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
     </a>
-  </div>
- <!--  <Dashboard /> -->
+  </div> -->
 </template>
 
 <script setup>
 import Dashboard from './components/Dashboard.vue';
+import FooterApp from './components/FooterApp.vue';
 </script>
 
 <style scoped>

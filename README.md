@@ -4,31 +4,29 @@
 ### Estamos utilizando para este desarrollo: 
 - Vue 3
 - Vite
-- Tailwindcss 3
+- Tailwindcss 3.4.17
 - VueRouter
 - Node.js
 - GitHub
-- Firebase Auth
 - Firebase Firestore
+- Firebase Functions
+- Firebase Hosting
 - Heroicons
 - Vercel
 
-## Porque estamos acá
-Esta es una primera implementación de para un pequeño
-
-**S.I.G.E.**  
-_Sistema Interno de Gestion Educativa para la Escuela Superior de Música de Neuquén_ 
+## Porque este repositorio?
+La idea es desarrollar una pequeña webapp que junte los datos de las tareas realizadas en todas las planillas de asistencia y notas de bedelia para tener un Tablero General del estado de las tareas.
 
 > [Link definito en Firebase Hosting](https://sige-esmn-git-dev-informaticaesmns-projects.vercel.app) aún no funciona ...
 
-> [Link de Vercel](https://sige-esmn.vercel.app)
+> [Link de desarrollo en Vercel](https://sige-esmn.vercel.app)
 
-> Por ahora funcionando en el rama de desarrolo [dev en Vercel](https://sige-esmn-git-dev-informaticaesmns-projects.vercel.app)
+___Desarrollado por personal de la escuela___
 
-Desarrollado por personal de la escuela, para suplir la falta de gestion que ofrece el Consejo Provincial de Educación, institucion que debería proveernos de las herramientas de gestion necesaria, para una educación de nivel acorde a los tiempos que corren y con la tecnologia que implica.
+## Funcion
+Esta pequeña app. Esta pensada para ir mostrar de manera ordenada y actualizada el estado de las tareas que lleva a cabo bedelia en la vida de los datos del ciclo electivo con respecto a la trayectoria de cada estudiante en cada secuencia que cursa.
 
-## Funciones y etapas
-Esta pequeña app. Esta pensada para ir sumando funcionalidades por etapas siendo estas:
+### Etapas
 - __Primer etapa__: Desarrollo de UI, integración con el sistema de Google Cloud, Firebase y que pueda dar un manejo claro para tener los datos del estudiantado en un repositorio unico y ordenado que sea fuente de datos para cualquier proceso administrativo que se requiera.
     - [x] Diseño de un login
     - [x] Vinculo de login con el servicio de Autenticación de Firebase.
