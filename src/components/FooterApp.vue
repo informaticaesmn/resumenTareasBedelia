@@ -8,7 +8,7 @@
       <div class="flex items-center gap-2">
         <CodeBracketSquareIcon class="h-5 w-5 text-primary-light"/> <!-- THEME-AWARE -->
         <span> 
-          {{ branch == "dev" ? 'Desarrollo' : 'Versión' }} | <i>{{ branch }} v{{ version }} ({{ commit }})</i>
+          {{ branch == "dev" ? 'Desarrollo' : 'Versión' }} | <i>{{ branch }} v{{ version }}</i>
         </span>
       </div>
 
