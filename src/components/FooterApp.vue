@@ -3,9 +3,10 @@
   <footer class="bg-stone-800 text-stone-300 text-xs text-light flex-1 grid md:grid-cols-2 text-center">
     
     <!-- Sección Izquierda: Info de Versión y Layout Actual -->
-    <div class="flex flex-col md:flex-row items-center justify-center gap-x-4 gap-y-2 p-4">
-      <!-- Info de Versión -->
+    <div class="flex flex-col md:flex-row items-center justify-center gap-x-4 gap-y-2 p-1">
+        <!-- Info de Versión -->
       <div class="flex items-center gap-2">
+        <div v-if="currentUserEmail" class="text-xs font-light text-stone-500 px-4"> {{ currentUserEmail }}</div>
         <CodeBracketSquareIcon class="h-5 w-5 text-primary-light"/> <!-- THEME-AWARE -->
         <span> 
           {{ branch == "dev" ? 'Desarrollo' : 'Versión' }} | <i>{{ branch }} v{{ version }}</i>
@@ -15,7 +16,7 @@
     </div>
 
     <!-- Sección Derecha: Copyright y Enlaces -->
-    <div class="flex items-center justify-center gap-4 p-4">
+    <div class="flex items-center justify-center gap-4 p-1">
       <!-- Enlace a la ESMN con ícono -->
       <button 
         class="btn btn-link text-primary focus:text-stone-50 hover:text-stone-50 transition
@@ -33,7 +34,7 @@
         target="_blank" 
         rel="noopener noreferrer" 
         class="shrink-0">
-        <img src="/avatar.png" alt="Logo ESMN" class="w-10 rounded-full">
+        <img src="/avatar.png" alt="Logo ESMN" class="w-9 rounded-full">
       </a>
     </div>
 
@@ -44,11 +45,20 @@
 <script setup>
   import { CodeBracketSquareIcon } from '@heroicons/vue/16/solid';
   import { AcademicCapIcon } from '@heroicons/vue/24/outline';
+  import { ref } from 'vue';
+  import { auth } from '../config/firebase.js';
+  import { onAuthStateChanged } from 'firebase/auth';
 
   // Variables de entorno inyectadas en tiempo de compilación
   const version = __APP_VERSION__;
   const branch = __APP_BRANCH__;
   const commit = __APP_COMMIT__;
+
+  // Email del usuario autenticado (se muestra en el footer)
+  const currentUserEmail = ref(null);
+  onAuthStateChanged(auth, (user) => {
+    currentUserEmail.value = user ? user.email : null;
+  });
 
   // Función para navegar al sitio de la escuela
   const sitioOficial = () => {

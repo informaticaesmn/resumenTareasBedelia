@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "gen-rules": "node ./scripts/generate-firestore-rules.js"
   },
   "dependencies": {
     "@heroicons/vue": "^2.2.0",

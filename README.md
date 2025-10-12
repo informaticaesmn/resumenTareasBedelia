@@ -11,6 +11,7 @@ Version actual: main v0.0.3 (commit a3c0c66)
 - Node.js
 - GitHub
 - Firebase Firestore
+- Firebase Authentication
 - Firebase Functions
 - Firebase Hosting
 - Heroicons
