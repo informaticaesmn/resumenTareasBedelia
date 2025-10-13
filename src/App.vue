@@ -1,7 +1,9 @@
 <template>
   <div class="min-h-screen bg-stone-100 flex flex-col">
+    
+    <BarraApp />
     <main class="flex-grow">
-      <Dashboard />
+      <router-view />
     </main>
     <FooterApp />
   </div>
@@ -17,7 +19,7 @@
 </template>
 
 <script setup>
-import Dashboard from './components/Dashboard.vue';
+import BarraApp from './components/BarraApp.vue';
 import FooterApp from './components/FooterApp.vue';
 </script>
 

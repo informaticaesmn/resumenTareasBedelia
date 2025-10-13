@@ -2,53 +2,89 @@ import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
 import { auth } from './config/firebase.js'
+import router from './router'
 import { GoogleAuthProvider, signInWithPopup, signInWithRedirect, onAuthStateChanged } from 'firebase/auth'
 
 const provider = new GoogleAuthProvider()
 
-// Evitar montar la app más de una vez
+// Estado de la aplicación
+let appInstance = null;
 let appMounted = false;
+let triedSignIn = false;
+
+// Inicializar la aplicación Vue con todos los plugins
+const initApp = () => {
+	if (appInstance) return appInstance;
+	
+	const app = createApp(App);
+	app.use(router);
+	appInstance = app;
+	return app;
+};
+
+// Montar la aplicación en el DOM
 const mountApp = () => {
 	if (appMounted) return;
-	createApp(App).mount('#app');
+	
+	const app = initApp();
+	app.mount('#app');
 	appMounted = true;
 };
 
-// Evitar intentar el popup repetidas veces
-let triedSignIn = false;
-
-onAuthStateChanged(auth, (user) => {
-	if (user) {
-		mountApp();
-	} else {
-		if (triedSignIn) {
-			// Ya intentamos el popup/redirect, montamos la app para permitir mostrar errores en la UI
+// Lógica de autenticación
+const handleAuthentication = () => {
+	onAuthStateChanged(auth, (user) => {
+		if (user) {
+			// Usuario autenticado - montar app
 			mountApp();
-			return;
+		} else {
+			// Usuario no autenticado
+			if (triedSignIn) {
+				// Ya intentamos autenticar, montar app para mostrar UI de error
+				mountApp();
+				return;
+			}
+
+			triedSignIn = true;
+			attemptSignIn();
 		}
+	});
+};
 
-		triedSignIn = true;
-		signInWithPopup(auth, provider)
-			.then(() => {
-				mountApp();
-			})
-			.catch((err) => {
-				console.error('No se pudo iniciar sesión con Google (popup):', err);
-				// Si el popup fue bloqueado, intentar redirect como fallback
-				const code = err?.code || '';
-				const message = String(err?.message || '');
-				if (code === 'auth/popup-blocked' || code === 'auth/operation-not-supported-in-this-environment' || message.includes('Cross-Origin-Opener-Policy')) {
-					try {
-						signInWithRedirect(auth, provider);
-						// No montamos la app: el redirect recargará y onAuthStateChanged será llamado después
-						return;
-					} catch (redirectErr) {
-						console.error('Fallback redirect failed:', redirectErr);
-					}
-				}
+const attemptSignIn = () => {
+	signInWithPopup(auth, provider)
+		.then(() => {
+			mountApp();
+		})
+		.catch((err) => {
+			console.error('No se pudo iniciar sesión con Google (popup):', err);
+			handleSignInError(err);
+		});
+};
 
-				// Si no hay fallback viable, montamos la app para que la UI pueda mostrar mensajes de error.
-				mountApp();
-			});
+const handleSignInError = (err) => {
+	const code = err?.code || '';
+	const message = String(err?.message || '');
+	
+	// Verificar si debemos intentar redirect como fallback
+	const shouldTryRedirect = 
+		code === 'auth/popup-blocked' || 
+		code === 'auth/operation-not-supported-in-this-environment' || 
+		message.includes('Cross-Origin-Opener-Policy');
+
+	if (shouldTryRedirect) {
+		try {
+			signInWithRedirect(auth, provider);
+			// No montamos la app: el redirect recargará la página
+			return;
+		} catch (redirectErr) {
+			console.error('Fallback redirect failed:', redirectErr);
+		}
 	}
-});
+
+	// Si no hay fallback viable, montamos la app para mostrar errores en UI
+	mountApp();
+};
+
+// Inicializar la aplicación
+handleAuthentication();
