@@ -4,10 +4,10 @@ Version actual: dev v0.2.0 (commit eb4cb31)
 <!--/VERSION-->
 
 ### Estamos utilizando para este desarrollo: 
-- Vue 3
 - Vite
+- Vue 3
 - Tailwindcss 3.4.17
-- VueRouter
+- Vue-Router 4.
 - Node.js
 - GitHub
 - Firebase Firestore
