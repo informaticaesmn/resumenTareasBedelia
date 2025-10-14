@@ -6,7 +6,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Tablero from '../views/Tablero.vue';
 import Confirmadas from '../views/Confirmadas.vue';
 import Pendientes from '../views/Pendientes.vue';
-import OCiclos from '../views/oCiclos.vue';
+import oCiclos from '../views/oCiclos.vue';
 
 const routes = [
     {
@@ -26,8 +26,8 @@ const routes = [
     },
     {
         path: '/ociclos',
-        name: 'OCiclos',
-        component: OCiclos,
+        name: 'OtrosCiclos',
+        component: oCiclos,
     },
 ];
 
