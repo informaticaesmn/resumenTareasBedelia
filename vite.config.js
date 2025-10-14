@@ -17,6 +17,21 @@ export default defineConfig({
   base: '/',  // ← para el dominio raiz de vercel - antes nombre del repositorio '/rac/'
   build: {
     outDir: 'dist' // Directorio de salida para los archivos construidos
+    ,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('firebase') || id.includes('@firebase')) {
+              return 'vendor-firebase';
+            }
+            if (id.includes('node_modules')) {
+              return 'vendor';
+            }
+          }
+        }
+      }
+    }
     },
   resolve: {
      alias: {
