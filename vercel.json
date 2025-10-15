@@ -1,14 +1,5 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "source": "vite.config.js",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    }
-  ],
   "rewrites": [
     {
       "source": "/(.*)",
