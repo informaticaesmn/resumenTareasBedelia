@@ -4,6 +4,7 @@ import App from './App.vue'
 import { auth } from './config/firebase.js'
 import router from './router'
 import { GoogleAuthProvider, signInWithPopup, signInWithRedirect, onAuthStateChanged } from 'firebase/auth'
+import { setAuthInitializing, setAuthUser } from './composables/useAuthState.js';
 
 const provider = new GoogleAuthProvider()
 
@@ -34,11 +35,33 @@ const mountApp = () => {
 // Lógica de autenticación
 const handleAuthentication = () => {
 	onAuthStateChanged(auth, (user) => {
+ 		setAuthUser(user);
+ 		setAuthInitializing(false);
 		if (user) {
 			// Usuario autenticado - montar app
 			mountApp();
 		} else {
 			// Usuario no autenticado
+			// En desarrollo intentamos el flujo de redirect (más robusto que popup
+			// frente a políticas COOP/COEP del navegador). Si ya intentamos sign-in,
+			// montamos la app para permitir debug.
+			if (import.meta.env.DEV) {
+				if (triedSignIn) {
+					mountApp();
+					return;
+				}
+				triedSignIn = true;
+				try {
+					console.info('Modo DEV: intentando signInWithRedirect...');
+					signInWithRedirect(auth, provider);
+					return;
+				} catch (err) {
+					console.error('signInWithRedirect falló en DEV:', err);
+					mountApp();
+					return;
+				}
+			}
+
 			if (triedSignIn) {
 				// Ya intentamos autenticar, montar app para mostrar UI de error
 				mountApp();
@@ -52,11 +75,14 @@ const handleAuthentication = () => {
 };
 
 const attemptSignIn = () => {
+	setAuthInitializing(true);
 	signInWithPopup(auth, provider)
 		.then(() => {
+			setAuthInitializing(false);
 			mountApp();
 		})
 		.catch((err) => {
+			setAuthInitializing(false);
 			console.error('No se pudo iniciar sesión con Google (popup):', err);
 			handleSignInError(err);
 		});

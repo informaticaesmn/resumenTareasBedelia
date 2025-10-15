@@ -128,7 +128,7 @@
 </template>
 
 <script setup>
-import { onUnmounted } from 'vue';
+import { onUnmounted, toRef } from 'vue';
 import { useSecuencias } from '../composables/useSecuencias.js';
 import { useFiltroTareas } from '../composables/useFiltroTareas.js';
 
@@ -138,7 +138,8 @@ const props = defineProps({
 });
 
 // Extraer la lógica de secuencias y tareas
-const { allTasks, loading, fetchError } = useSecuencias(props.cycleId);
+const cycleIdRef = toRef(props, 'cycleId');
+const { allTasks, loading, fetchError } = useSecuencias(cycleIdRef);
 
 // Filtros y paginación
 const { searchQuery, selectedFolder, selectedTask, currentPage, itemsPerPage, uniqueFolders, uniqueTasks, filteredTasks, paginatedTasks, totalPages, nextPage, prevPage } = useFiltroTareas(allTasks, { itemsPerPage: 50 });

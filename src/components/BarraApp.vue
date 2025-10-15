@@ -20,7 +20,7 @@
         class="hover:bg-teal-600 px-3 py-2 flex items-center rounded transition"
       >
         <component :is="link.icon" class="h-5 w-5" />
-        <span class="px-2">{{ link.text }}</span>
+        <span class="px-2 font-light">{{ link.text }}</span>
       </button>
     </div>
 
@@ -41,7 +41,7 @@
 
     <!-- Logo o título de la app -->
     <div class="flex-1 text-right ">
-      <h2 class="text-md font-medium text-stone-200">Bedelia</h2>
+      <h2 class="text-sm font-medium text-stone-200">Bedelia</h2>
     </div>
   </nav>
 </template>
@@ -53,7 +53,9 @@ import {
   Bars3Icon, 
   Square3Stack3DIcon, 
   WindowIcon, 
-  AcademicCapIcon 
+  AcademicCapIcon,
+  DocumentIcon,
+  DocumentCheckIcon
 } from '@heroicons/vue/24/outline'
 
 const menuOpen = ref(false)
@@ -62,8 +64,8 @@ const router = useRouter()
 // Menú simplificado - ajusta según tus necesidades
 const menuLinks = [
   { to: '/', text: 'Tablero', icon: Square3Stack3DIcon },
-  { to: '/Confirmadas', text: 'Confirmadas', icon: AcademicCapIcon },
-  { to: '/Pendientes', text: 'Pendientes', icon: AcademicCapIcon },
+  { to: '/Confirmadas', text: 'Confirmadas', icon: DocumentCheckIcon },
+  { to: '/Pendientes', text: 'Pendientes', icon: DocumentIcon },
   { to: '/ociclos', text: 'Otros Ciclos', icon: Square3Stack3DIcon },
 ]
 

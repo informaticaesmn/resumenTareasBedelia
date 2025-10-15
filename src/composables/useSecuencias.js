@@ -32,8 +32,13 @@ export function useSecuencias(cycleIdRef, options = {}) {
       loading.value = false;
       fetchError.value = null;
     } catch (err) {
-      console.error('useSecuencias: polling error', err);
-      fetchError.value = err;
+        console.error('useSecuencias: polling error', err);
+        // Mapear errores comunes a mensajes más amigables
+        if (err && err.code === 'permission-denied') {
+          fetchError.value = { code: err.code, message: 'Acceso denegado: no estás autorizado para leer estos datos. Asegurate de iniciar sesión con una cuenta autorizada.' };
+        } else {
+          fetchError.value = err;
+        }
     }
   }
 
@@ -100,7 +105,6 @@ export function useSecuencias(cycleIdRef, options = {}) {
     allTasks.value = [];
     loading.value = true;
     fetchError.value = null;
-
     try {
       const secRef = collection(db, 'ciclos', newCycle, 'secuencias');
       const secSnapshot = await getDocs(secRef);
@@ -119,6 +123,7 @@ export function useSecuencias(cycleIdRef, options = {}) {
       secSnapshot.forEach(secDoc => {
         const secId = secDoc.id;
         const secData = secDataMap.get(secId) || {};
+        
         const tareasRef = collection(db, 'ciclos', newCycle, 'secuencias', secId, 'tareas');
         const unsub = onSnapshot(tareasRef, (querySnapshot) => {
           const tasksForThisSec = [];
@@ -134,7 +139,11 @@ export function useSecuencias(cycleIdRef, options = {}) {
           loading.value = false;
         }, (error) => {
           console.error('useSecuencias: onSnapshot error', error);
-          fetchError.value = error;
+          if (error && error.code === 'permission-denied') {
+            fetchError.value = { code: error.code, message: 'Acceso denegado en realtime: no estás autorizado para leer estas colecciones. Reintenta iniciar sesión con una cuenta de la lista blanca.' };
+          } else {
+            fetchError.value = error;
+          }
           loading.value = false;
           if (!isPolling) { startPolling(Array.from(secTasks.keys())); }
         });
