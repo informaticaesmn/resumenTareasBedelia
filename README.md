@@ -1,6 +1,6 @@
 ﻿# Dashboard para las tareas de Bedelia
 <!--VERSION-->
-Version actual: dev v0.3.2 (commit a00bb80)
+Version actual: dev v0.3.3 (commit f9c5ff1)
 <!--/VERSION-->
 
 ### Estamos utilizando para este desarrollo: 
@@ -47,6 +47,7 @@ Esta pequeña app. Esta pensada para ir mostrar de manera ordenada y actualizada
 > Hay un archivo con [notas e ideas](NOTAS.md) que se van generando en el equipo de trabajo reunido para pensar en este sistema 
 
 <br><br><br><p align="right"> <i>Genaro Villar   </i></p>
+
 
 
 
