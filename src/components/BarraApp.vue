@@ -51,9 +51,8 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { 
   Bars3Icon, 
+  Squares2X2Icon, 
   Square3Stack3DIcon, 
-  WindowIcon, 
-  AcademicCapIcon,
   DocumentIcon,
   DocumentCheckIcon
 } from '@heroicons/vue/24/outline'
@@ -63,7 +62,7 @@ const router = useRouter()
 
 // Menú simplificado - ajusta según tus necesidades
 const menuLinks = [
-  { to: '/', text: 'Tablero', icon: Square3Stack3DIcon },
+  { to: '/', text: 'Tablero', icon: Squares2X2Icon },
   { to: '/Confirmadas', text: 'Confirmadas', icon: DocumentCheckIcon },
   { to: '/Pendientes', text: 'Pendientes', icon: DocumentIcon },
   { to: '/ociclos', text: 'Otros Ciclos', icon: Square3Stack3DIcon },
