@@ -1,7 +1,11 @@
 {
   "name": "resumen-bedelia",
   "private": true,
+<<<<<<< HEAD
   "version": "0.2.3",
+=======
+  "version": "0.3.1",
+>>>>>>> origin
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,6 +16,7 @@
   "dependencies": {
     "@heroicons/vue": "^2.2.0",
     "firebase": "^12.4.0",
+    "firebase-lite": "^0.0.1",
     "vue": "^3.5.22",
     "vue-router": "^4.5.1"
   },

@@ -26,7 +26,8 @@
 import { ref, onMounted } from 'vue';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../config/firebase.js'; 
-import Dashboard from '../components/Dashboard.vue'; // Importamos el nuevo componente
+import { defineAsyncComponent } from 'vue';
+const Dashboard = defineAsyncComponent(() => import('../components/Dashboard.vue'));
 
 // --- REFERENCIAS REACTIVAS ---
 const loading = ref(true); // Estado de carga
